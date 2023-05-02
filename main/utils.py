@@ -26,7 +26,7 @@ async def progress_message(current, total, ud_type, message, start):
             d=humanbytes(speed),
             f=estimated_total_time if estimated_total_time != '' else "0 s")                               
         try:
-            chance = [[InlineKeyboardButton("🚫 Cancel", callback_data="del")]]
+            chance = [[InlineKeyboardButton("⛈️ Cancel ⛈️", callback_data="del")]]
             await message.edit(text="{}\n{}".format(ud_type, tmp), reply_markup=InlineKeyboardMarkup(chance))         
         except:
             pass
