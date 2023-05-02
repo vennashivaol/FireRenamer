@@ -7,10 +7,10 @@ from main.utils import progress_message, humanbytes
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
-       return await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
+       return await msg.reply_text("ᴘʟᴇᴀꜱᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ꜰɪʟᴇ ᴏʀ ᴠɪᴅᴇᴏ ᴏʀ ᴀᴜᴅɪᴏ ᴡɪᴛʜ ꜰɪʟᴇɴᴀᴍᴇ + .ᴇxᴛᴇɴꜱɪᴏɴ ᴇɢ:-(`.ᴍᴋᴠ` ᴏʀ `.ᴍᴘ4` ᴏʀ `.ᴢɪᴘ`)")
     media = reply.document or reply.audio or reply.video
     if not media:
-       await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
+       await msg.reply_text("ᴘʟᴇᴀꜱᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ꜰɪʟᴇ ᴏʀ ᴠɪᴅᴇᴏ ᴏʀ ᴀᴜᴅɪᴏ ᴡɪᴛʜ ꜰɪʟᴇɴᴀᴍᴇ + .ᴇxᴛᴇɴꜱɪᴏɴ ᴇɢ:-(`.ᴍᴋᴠ` ᴏʀ `.ᴍᴘ4` ᴏʀ `.ᴢɪᴘ`)")
     og_media = getattr(reply, reply.media.value)
     new_name = msg.text.split(" ", 1)[1]
     sts = await msg.reply_text("..𝙐𝙥𝙡𝙤𝙖𝙙𝙞𝙣𝙜..🚀")
@@ -21,7 +21,7 @@ async def rename_file(bot, msg):
         try:
             cap = CAPTION.format(file_name=new_name, file_size=filesize)
         except Exception as e:            
-            return await sts.edit(text=f"Your caption Error unexpected keyword ●> ({e})")           
+            return await sts.edit(text=f"ʏᴏᴜʀ ᴄᴀᴘᴛɪᴏɴ ᴇʀʀᴏʀ ᴜɴᴇxᴘᴇᴄᴛᴇᴅ ᴋᴇʏᴡᴏʀᴅ ●> ({e})")           
     else:
         cap = f"{new_name}\n\n💽 size : {filesize}"
 
