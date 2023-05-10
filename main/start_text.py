@@ -9,8 +9,6 @@ async def start_cmd(bot, msg):
     btn = InlineKeyboardMarkup([[
         InlineKeyboardButton("🤖 SOURCE CODE", url="https://github.com/MrMKN/Simple-Rename-Bot")
         ],[
-        InlineKeyboardButton("🖥️ How To Deploy", url="https://youtu.be/oc847WvOUaI")
-        ],[
         InlineKeyboardButton("🚫 Close", callback_data="del")
     ]])
     if msg.from_user.id != ADMIN:
@@ -59,9 +57,10 @@ async def about(bot, msg):
     await msg.message.edit(text=txt, reply_markup=InlineKeyboardMarkup(button), disable_web_page_preview = True, parse_mode=enums.ParseMode.HTML)
 
 
-@Client.on_callback_query(filters.private("del"))
+@Client.on_callback_query(filters.regex("del"))
 async def closed(bot, msg):
     try:
         await msg.message.delete()
     except:
         return
+
