@@ -3,7 +3,7 @@ from pyrogram import Client, filters, enums
 from config import DOWNLOAD_LOCATION, CAPTION, ADMIN
 from main.utils import progress_message, humanbytes
 
-@Client.on_message(filters.private & filters.command("rename") & filters.private)       
+@Client.on_message((filters.private & filters.command("rename") & filters.private))
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
@@ -13,17 +13,17 @@ async def rename_file(bot, msg):
        await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
     og_media = getattr(reply, reply.media.value)
     new_name = msg.text.split(" ", 1)[1]
-    sts = await msg.reply_text("Trying to Downloading.....")
+    ms = await msg.reply_text("1. ✨✨Uploading ⌛")
     c_time = time.time()
-    downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("Download Started.....", sts, c_time)) 
-    filesize = humanbytes(og_media.file_size)                
+    downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("2. Uploading", ms, c_time))
+    filesize = humanbytes(og_media.file_size)
     if CAPTION:
         try:
             cap = CAPTION.format(file_name=new_name, file_size=filesize)
-        except Exception as e:            
+        except Exception as e:
             return await sts.edit(text=f"Your caption Error unexpected keyword ●> ({e})")           
     else:
-        cap = f"{new_name}\n\n💽 size : {filesize}"
+        cap = f"{new_name}\n\n 💾 size : {filesize}"
 
     # this idea's back end is MKN brain 🧠
 
@@ -35,20 +35,22 @@ async def rename_file(bot, msg):
         try:
             og_thumbnail = f"{DOWNLOAD_LOCATION}/thumbnail.jpg"
         except Exception as e:
-            print(e)        
+            print(e)
             og_thumbnail = None
-        
-    await sts.edit("Trying to Uploading")
+    await ms.edit("3. ✨✨Download..⌛")
     c_time = time.time()
     try:
-        await bot.send_document(msg.chat.id, document=downloaded, thumb=og_thumbnail, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
-    except Exception as e:  
-        return await sts.edit(f"Error {e}")                       
+        await bot.send_document(msg.chat.id, document=downloaded, thumb=og_thumbnail, caption=cap, progress=progress_message, progress_args=("4. Downloading⚡", ms, c_time))
+    except Exception as e:
+        return await sts.edit(f"Error {e}")
     try:
         if file_thumb:
             os.remove(file_thumb)
-        os.remove(downloaded)      
+        os.remove(downloaded)
     except:
         pass
-    await sts.delete()
+    await ms.delete()
+
+
+
 

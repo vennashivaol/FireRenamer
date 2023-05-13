@@ -17,8 +17,8 @@ async def progress_message(current, total, ud_type, message, start):
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)                                    
         progress = "\n{0}{1}".format(
-            ''.join(["⬢" for i in range(math.floor(percentage / 5))]),
-            ''.join(["⬡" for i in range(20 - math.floor(percentage / 5))]))                                  
+            ''.join(["🔥" for i in range(math.floor(percentage / 10))]),
+            ''.join(["🔹" for i in range(10 - math.floor(percentage / 10))]))                                  
         tmp = progress + PROGRESS_BAR.format(
             a=round(percentage, 2),
             b=humanbytes(current),
@@ -55,4 +55,11 @@ def TimeFormatter(milliseconds: int) -> str:
     return tmp[:-2]
 
 
+def convert(seconds):
+    seconds = seconds % (24 * 3600)
+    hour = seconds // 3600
+    seconds %= 3600
+    minutes = seconds // 60
+    seconds %= 60
+    return "%d:%02d:%02d" % (hour, minutes, seconds)
 
